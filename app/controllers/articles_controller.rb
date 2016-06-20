@@ -7,6 +7,9 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
+    if request.path != article_path(@article)
+    	redirect_to @article, status: :moved_permanently
+    end
   end
 
   def new
@@ -29,7 +32,6 @@ class ArticlesController < ApplicationController
 
 	def update
 	  @article = Article.find(params[:id])
-	 
 	  if @article.update(article_params)
 	    redirect_to @article
 	  else
