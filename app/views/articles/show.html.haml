@@ -1,18 +1,22 @@
-%p
-  %strong Title:
-  = @article.title
- 
-%p
-  %strong Text:
-  = @article.text
-
-
-%h2 Comments
-= render @article.comments
- 
-%h2 Add a comment:
-= render 'comments/form'
-
-= link_to 'Edit', edit_article_path(@article)
-|
-= link_to 'Back', articles_path
+.thumbnail
+  .caption-full
+    %h4= @article.title
+    %hr/
+    %p= @article.text.html_safe
+  .ratings
+    %p.pull-right 3 reviews
+    %p
+      = time_ago_in_words(@article.created_at)
+      ago
+.well
+  .text-right
+    %h4 Comments
+  %hr/
+  = render @article.comments
+.panel.panel-default
+  .panel-heading.caption-full
+    %p Leave a Comment
+  .panel-body
+    = render 'comments/form'
+= link_to 'Back', articles_path, :class => 'btn btn-default'
+= link_to 'Edit', edit_article_path(@article), :class => 'btn btn-primary'

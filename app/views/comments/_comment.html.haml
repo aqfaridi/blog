@@ -1,10 +1,7 @@
-%p
-  %strong Commenter:
-  = comment.commenter
- 
-%p
-  %strong Comment:
-  = comment.body
-
-%p
-  = link_to 'Destroy Comment', [comment.article, comment],method: :delete,data: { confirm: 'Are you sure?' } 
+.row
+  %div
+    .lead.col-md-7= comment.commenter
+    .pull-right= link_to 'Destroy Comment', [comment.article, comment],:class => 'btn btn-xs btn-danger', method: :delete,data: { confirm: 'Are you sure?' }
+  .col-md-9
+    %p= comment.body.html_safe
+%hr/
