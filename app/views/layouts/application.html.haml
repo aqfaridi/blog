@@ -1,12 +1,49 @@
-%html
-	%head
-		%title Blog
-
-		= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
-		= javascript_include_tag 'application', 'data-turbolinks-track' => true
-		= csrf_meta_tags 
-
-	%body
-		= yield
-
-
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title= content_for?(:title) ? yield(:title) : "Blog"
+    = csrf_meta_tags
+    = stylesheet_link_tag "application", :media => "all"
+    = javascript_include_tag "application"
+    / Le HTML5 shim, for IE6-8 support of HTML elements
+    /[if lt IE 9]
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js" type="text/javascript"></script>
+  %body
+    :javascript
+      bkLib.onDomLoaded(function() {
+        new nicEditor().panelInstance('area1');
+      });
+    .navbar.navbar-inverse
+      .container
+        .navbar-header
+          %button.navbar-toggle{"data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand{:href => "/"} Blog
+        #bs-example-navbar-collapse-1.collapse.navbar-collapse
+          %ul.nav.navbar-nav
+            %li
+              %a{:href => "/articles"} Articles
+            %li
+              %a{:href => "#"} Contact
+    .container
+      .row
+        .col-md-3
+          %p.lead Blog Category
+          .list-group
+            %a.list-group-item.active{:href => "/articles"} Education
+            %a.list-group-item{:href => "#"} Entertainment
+            %a.list-group-item{:href => "#"} Health
+            %a.list-group-item{:href => "#"} Sports
+          = link_to 'New Article',                       |
+            new_article_path,                            |
+            :class => 'col-md-12 btn btn-lg btn-success' |
+        .col-md-9
+          = bootstrap_flash
+          = yield
+      / /row
+      = render "layouts/footer"
+    / /container
