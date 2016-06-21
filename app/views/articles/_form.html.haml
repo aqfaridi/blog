@@ -24,3 +24,9 @@
       = f.submit :class => 'btn btn-primary'
       = link_to 'Cancel',                          |
         articles_path, :class => 'btn btn-default' |
+
+
+:javascript
+  jQuery( document ).ready(function( $ ) {
+    new nicEditor().panelInstance('area1');
+  });
