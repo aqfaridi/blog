@@ -1,0 +1,13 @@
+.container
+  .row
+    .col-sm-6.col-md-4.col-md-offset-2
+      %h1.text-center.login-title Forgot your password?
+      .account-wall
+        = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post,:class => "form-signin" }) do |f|
+          .form-group
+            = f.label :email
+            %br/
+            = f.email_field :email, :class => 'form-control', :placeholder => 'Email', required: true, autofocus: true
+          = f.submit 'Send me reset password instructions',:class => 'btn btn-info btn-block'
+      .text-center.new-account
+        = render "devise/shared/links"
