@@ -8,6 +8,11 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  slug       :string
+#  user_id    :integer
+#
+# Indexes
+#
+#  index_articles_on_slug  (slug)
 #
 
 require 'test_helper'

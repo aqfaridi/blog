@@ -92,6 +92,16 @@
     -webkit-border-radius: 50%;
     border-radius: 50%;
 }
+
+.nav-img
+{
+    width: 30px;
+    height: 30px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 30%;
+}
+
 .need-help
 {
     margin-top: 10px;
