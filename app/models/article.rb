@@ -1,5 +1,5 @@
 class Article < ActiveRecord::Base
-	extend FriendlyId
+  extend FriendlyId
   friendly_id :title, use: [:slugged, :finders, :history]
 
   has_many :comments, dependent: :destroy
@@ -7,6 +7,6 @@ class Article < ActiveRecord::Base
                     length: { minimum: 5 }
 
   def should_generate_new_friendly_id?
-		title_changed?
+    title_changed?
   end                  
 end
