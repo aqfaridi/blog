@@ -24,9 +24,12 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'friendly_id', '~> 5.1.0'
-gem 'twitter-bootstrap-rails', '^3.2.2'
-gem 'haml-rails', '^0.9.0'
-gem 'devise', '^4.1.1'
+gem 'twitter-bootstrap-rails', '~> 3.2.2'
+gem 'haml-rails', '~> 0.9.0'
+gem 'devise', '~> 4.1.1'
+gem 'annotate', '~> 2.7.1'
+gem 'mail', '~> 2.6.4'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -38,7 +41,13 @@ gem 'devise', '^4.1.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', '^9.0.5'
+  gem 'byebug', '~> 9.0.5'
+  gem 'better_errors', '~> 2.1.1'
+  gem 'binding_of_caller', '~> 0.7.2'
+  gem 'awesome_print', '~> 1.7.0'
+  gem 'letter_opener', '~> 1.4.1'
+  gem 'rails_best_practices', '~> 1.16.0'
+  gem 'rack-mini-profiler'
 end
 
 group :development do

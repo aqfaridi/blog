@@ -1,17 +1,20 @@
 - @articles.each do |article|
   .thumbnail
     .caption-full
-      %h4= link_to article.title, article_path(article)
+      %h4
+        = link_to article.title, article_path(article) |
+        %span.pull-right
+          - if current_user != nil and current_user.email == article.user.email
+            = link_to 'Edit',edit_article_path(article), :class => 'btn btn-default btn-xs'
+            = link_to 'Delete',                   |
+              article_path(article),              |
+              :method => :delete,                 |
+              data: { confirm: 'Are you sure?' }, |
+              :class => 'btn btn-xs btn-danger'   |
       %hr/
       %p= article.text.html_safe
     .ratings
-      %p.pull-right
-        = link_to 'Edit',edit_article_path(article), :class => 'btn btn-default btn-xs'
-        = link_to 'Delete',                   |
-          article_path(article),              |
-          :method => :delete,                 |
-          data: { confirm: 'Are you sure?' }, |
-          :class => 'btn btn-xs btn-danger'   |
+      %p.pull-right= article.user.email 
       %p
         = time_ago_in_words(article.created_at)
         ago
