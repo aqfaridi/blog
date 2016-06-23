@@ -1,10 +1,14 @@
 .thumbnail
   .caption-full
-    %h4= @article.title
+    %h4
+      = @article.title |
+      %span.pull-right
+        - if current_user.email == @article.user.email
+          = link_to 'Edit', edit_article_path(@article), :class => 'btn btn-primary' 
     %hr/
     %p= @article.text.html_safe
   .ratings
-    %p.pull-right 3 reviews
+    %p.pull-right= @article.user.email 
     %p
       = time_ago_in_words(@article.created_at)
       ago
@@ -22,4 +26,4 @@
     - else
       %em you must be logged in to comment !! 
 = link_to 'Back', articles_path, :class => 'btn btn-default'
-= link_to 'Edit', edit_article_path(@article), :class => 'btn btn-primary'
+
