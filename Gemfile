@@ -24,9 +24,9 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'friendly_id', '~> 5.1.0'
-gem "twitter-bootstrap-rails"
-gem "haml-rails"
-gem 'devise'
+gem 'twitter-bootstrap-rails', '^3.2.2'
+gem 'haml-rails', '^0.9.0'
+gem 'devise', '^4.1.1'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -38,7 +38,7 @@ gem 'devise'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+  gem 'byebug', '^9.0.5'
 end
 
 group :development do
