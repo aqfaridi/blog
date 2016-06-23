@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   def validation(user,article)
     unless user.email == article.user.email
+      flash[:alert] = 'You are not authenticated User !!'
       redirect_to article
     end
   end

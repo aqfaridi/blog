@@ -3,7 +3,7 @@
     %h4
       = @article.title |
       %span.pull-right
-        - if current_user.email == @article.user.email
+        - if current_user != nil and current_user.email == @article.user.email
           = link_to 'Edit', edit_article_path(@article), :class => 'btn btn-primary' 
     %hr/
     %p= @article.text.html_safe
