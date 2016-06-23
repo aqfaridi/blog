@@ -1,23 +1,32 @@
-= form_for @article do |f|
- 
+= form_for @article, :html => { :class => "form-horizontal" } do |f|
   - if @article.errors.any?
-    %div#error_explanation
-      %h2
-        = pluralize(@article.errors.count, "error")
-        prohibited this article from being saved:
-      %ul
-        - @article.errors.full_messages.each do |msg|
-          %li= msg
- 
-  %p
-    = f.label :title 
-    %br/
-    = f.text_field :title
- 
-  %p
-    = f.label :text 
-    %br
-    = f.text_area :text
- 
-  %p
-    = f.submit
+    .panel.panel-danger
+      .panel-heading
+        %h3.panel-title
+          = pluralize(@article.errors.count, "error")
+          prohibited this article from being saved:
+      .panel-body
+        %ul
+          - @article.errors.full_messages.each do |msg|
+            %li= msg
+  .form-group
+    = f.label :title, :class => 'control-label col-md-1'
+    .col-md-11
+      = f.text_field :title, :class => 'form-control'
+      = f.error_span(:title)
+  .form-group
+    = f.label :text, :class => 'control-label col-md-1'
+    .col-md-11
+      = f.text_area :text,:rows => '5', :class => 'form-control', :id => 'area1'
+      = f.error_span(:text)
+  .form-group
+    .col-lg-offset-1.col-md-11
+      = f.submit :class => 'btn btn-primary'
+      = link_to 'Cancel',                          |
+        articles_path, :class => 'btn btn-default' |
+
+
+:javascript
+  jQuery( document ).ready(function( $ ) {
+    new nicEditor().panelInstance('area1');
+  });
