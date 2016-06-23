@@ -44,6 +44,9 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'awesome_print'
+  gem 'letter_opener'
+  gem 'rails_best_practices'
+  gem 'rack-mini-profiler'
 end
 
 group :development do
