@@ -1,9 +1,10 @@
-class ArticleMailer < ActionMailer::Base
-	def article_created(user)
+class ArticleMailer < ApplicationMailer
+  def article_created(user,article)
+    @user = user
+    @article = article
     mail(to: user.email,
          from: "aqfaridi@gmail.com",
-         subject: "Post Created",
-         body: "This is ActionMailer"
+         subject: "New Article Created",
     )
   end
 end

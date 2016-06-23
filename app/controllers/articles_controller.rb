@@ -23,9 +23,8 @@ class ArticlesController < ApplicationController
 
   def create
     @article = current_user.articles.build(article_params)
-   
     if @article.save
-      ArticleMailer.article_created(current_user).deliver
+      ArticleMailer.article_created(current_user,@article).deliver
       redirect_to @article
     else
       render 'new'
@@ -43,8 +42,8 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article = Article.find(params[:id])
+    validation(current_user,@article)
     @article.destroy
-   
     redirect_to articles_path
   end
 
