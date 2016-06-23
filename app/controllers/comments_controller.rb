@@ -9,6 +9,7 @@ class CommentsController < ApplicationController
   
   def destroy
     @article = Article.find(params[:article_id])
+    validation(current_user,@article)
     @comment = @article.comments.find(params[:id])
     @comment.destroy
     redirect_to article_path(@article)
@@ -18,4 +19,5 @@ class CommentsController < ApplicationController
     def comment_params
       params.require(:comment).permit(:commenter, :body)
   end
+
 end
