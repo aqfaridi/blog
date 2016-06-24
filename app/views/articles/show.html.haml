@@ -6,9 +6,13 @@
         - if current_user != nil and current_user.email == @article.user.email
           = link_to 'Edit', edit_article_path(@article), :class => 'btn btn-primary' 
     %hr/
+    = image_tag(@article.featured.url, :class => 'article-img img-responsive')
+    %hr/   
     %p= @article.text.html_safe
+  %p.pull-right
+    %span.glyphicon.glyphicon-tags
+    %span.btn.btn-default.btn-xs= raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join(' | ')
   .ratings
-    %p.pull-right= @article.user.email 
     %p
       = time_ago_in_words(@article.created_at)
       ago
@@ -23,6 +27,16 @@
   .panel-body
     - if user_signed_in?
       = render 'comments/form'
+      / - if @comment.errors.any?
+      /   .panel.panel-danger
+      /     .panel-heading
+      /       %h3.panel-title
+      /         = pluralize(@comment.errors.count, "error")
+      /         prohibited this comment from being saved:
+      /     .panel-body
+      /       %ul
+      /         - @comment.errors.full_messages.each do |msg|
+      /           %li= msg
     - else
       %em you must be logged in to comment !! 
 = link_to 'Back', articles_path, :class => 'btn btn-default'

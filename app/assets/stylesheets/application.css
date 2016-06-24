@@ -12,6 +12,9 @@
  *
  *= require_tree .
  *= require_self
+ *= require bootstrap-tagsinput
+ *= require tags
+ *= require bootstrap-glyphicons
  */
 
 .ratings {
@@ -93,6 +96,14 @@
     border-radius: 50%;
 }
 
+.article-img
+{
+    width: 900px;
+    height: 300px;
+    margin: 0 auto 10px;
+    display: block;
+}
+
 .nav-img
 {
     width: 30px;
@@ -111,4 +122,6 @@
     display: block;
     margin-top: 10px;
 }
-
+.btn-space {
+    margin: 1px;
+}
