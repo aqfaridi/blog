@@ -49,7 +49,7 @@
               %hr
               - tag_cloud
               - @tags.each do |tag|
-                = link_to tag.name, tag_path(tag), :class => 'btn btn-primary btn-xs btn-space'
+                = link_to tag.name, tag_path(tag), :class => "btn btn-primary btn-xs btn-space #{'css'+tag.taggings_count.to_s}"
 
           - if user_signed_in?
             = link_to 'New Article',                       |
