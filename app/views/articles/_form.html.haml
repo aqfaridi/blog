@@ -15,10 +15,19 @@
       = f.text_field :title, :class => 'form-control'
       = f.error_span(:title)
   .form-group
+    = f.label :featured, 'Image', :class => 'control-label col-md-1'
+    .col-md-11
+      = f.file_field :featured
+  .form-group
     = f.label :text, :class => 'control-label col-md-1'
     .col-md-11
       = f.text_area :text,:rows => '5', :class => 'form-control', :id => 'area1'
       = f.error_span(:text)
+  .form-group
+    = f.label :tag_list, 'Tags', :class => 'control-label col-md-1'
+    .col-md-11
+      = f.text_field :tag_list, :class => 'form-control', 'data-role'=>'tagsinput'
+      = f.error_span(:tag_list)   
   .form-group
     .col-lg-offset-1.col-md-11
       = f.submit :class => 'btn btn-primary'
