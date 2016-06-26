@@ -1,3 +1,10 @@
+= search_form_for @q do |f| 
+  = f.label :title_cont
+  = f.search_field :title_cont
+  = f.submit
+
+
+
 - @articles.each do |article|
   .thumbnail
     .caption-full
