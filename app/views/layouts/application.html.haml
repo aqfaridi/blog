@@ -33,20 +33,24 @@
               = link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link'
               |
               = link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'
+              = image_tag(current_user.avatar.url, :class => 'nav-img')
             - else
               = link_to "Sign up", new_user_registration_path, :class => 'navbar-link'
               |
               = link_to "Login", new_user_session_path, :class => 'navbar-link'
 
+
     .container
       .row
         .col-md-3
-          %p.lead Blog Category
-          .list-group
-            %a.list-group-item.active{:href => "/articles"} Education
-            %a.list-group-item{:href => "#"} Entertainment
-            %a.list-group-item{:href => "#"} Health
-            %a.list-group-item{:href => "#"} Sports
+          .thumbnail
+            .caption-full
+              %p.lead Blog Tags
+              %hr
+              - tag_cloud
+              - @tags.each do |tag|
+                = link_to tag.name, tag_path(tag), :class => "btn btn-primary btn-xs btn-space #{'css'+tag.taggings_count.to_s}"
+
           - if user_signed_in?
             = link_to 'New Article',                       |
               new_article_path,                            |
@@ -57,3 +61,8 @@
       / /row
       = render "layouts/footer"
     / /container
+
+:javascript
+  jQuery( document ).ready(function( $ ) {
+    $("#article_tag_list").tagsinput();
+  });
