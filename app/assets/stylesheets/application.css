@@ -12,6 +12,9 @@
  *
  *= require_tree .
  *= require_self
+ *= require bootstrap-tagsinput
+ *= require tags
+ *= require bootstrap-glyphicons
  */
 
 .ratings {
@@ -92,6 +95,24 @@
     -webkit-border-radius: 50%;
     border-radius: 50%;
 }
+
+.article-img
+{
+    width: 900px;
+    height: 300px;
+    margin: 0 auto 10px;
+    display: block;
+}
+
+.nav-img
+{
+    width: 30px;
+    height: 30px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 30%;
+}
+
 .need-help
 {
     margin-top: 10px;
@@ -101,4 +122,18 @@
     display: block;
     margin-top: 10px;
 }
+.btn-space {
+    margin: 1px;
+}
 
+.no-pad {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.pad {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
