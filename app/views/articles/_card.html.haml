@@ -1,0 +1,34 @@
+- if @articles.length == 0
+  %p.text-center 
+    %em << No Results Found >>
+
+- @articles.each do |article|
+  .thumbnail
+    .caption-full
+      %h4
+        = link_to article.title, article_path(article) |
+        %span.pull-right
+          - if current_user and current_user.email == article.user.email
+            = link_to 'Edit', edit_article_path(article), :class => 'btn btn-default btn-xs'
+            = link_to 'Delete',                   |
+              article_path(article),              |
+              :method => :delete,                 |
+              data: { confirm: 'Are you sure?' }, |
+              :class => 'btn btn-xs btn-danger'   |
+      %hr/
+      = image_tag(article.featured.url, :class => 'article-img img-responsive')
+      %hr/
+      %p
+        = truncate article.text.html_safe, length: 600,:omission => "",:escape => false
+        %span= "..."
+        %span= link_to 'Read more', {:action => "show",:id => article.friendly_id}
+
+      %p.pull-right
+        %span.glyphicon.glyphicon-tags
+        %span.btn.btn-default.btn-xs= raw article.tags.map { |t| link_to t.name, tag_path(t.id) }.join(' | ')  
+    .ratings
+      %p
+        = time_ago_in_words(article.created_at)
+        ago
+.apple_pagination
+  = will_paginate @articles

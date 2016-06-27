@@ -1,0 +1,22 @@
+- @tags.each do |tag|
+  .thumbnail
+    .caption-full
+      %h4
+        = link_to tag.title, tag_path(tag) |
+        %span.pull-right
+          - if current_user != nil and current_user.email == tag.user.email
+            = link_to 'Edit',edit_tag_path(tag), :class => 'btn btn-default btn-xs'
+            = link_to 'Delete',                   |
+              tag_path(tag),              |
+              :method => :delete,                 |
+              data: { confirm: 'Are you sure?' }, |
+              :class => 'btn btn-xs btn-danger'   |
+      %hr/
+      %p= tag.text.html_safe
+    .ratings
+      %p.pull-right= raw tag.tag_list.map { |t| link_to t, tag_path(t) }.join(', ')
+      %p
+        = time_ago_in_words(tag.created_at)
+        ago
+.apple_pagination
+  = will_paginate @tags
