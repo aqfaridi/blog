@@ -2,7 +2,9 @@
   = search_form_for @q, remote:true do |f|
     .col-md-12
       %span.col-md-5= f.search_field :title_cont,:class => 'form-control no-pad', :placeholder => "Title"
-      %span.col-md-5= f.search_field :tags_name_cont,:class => 'form-control no-pad', :placeholder => "Tags"
+
+      / %span.col-md-5= f.search_field :tags_name_cont,:class => 'form-control no-pad', :placeholder => "Tags"
+      %span.col-md-5= f.select :tags_name_cont, options_from_collection_for_select(ActsAsTaggableOn::Tag.all, "name", "name"), include_blank: true  
       .col-md-2= f.submit :class => 'btn btn-primary btn-block'
 
 .pull-right
@@ -15,3 +17,12 @@
 
 %div.thumb
   = render :partial => 'card'
+
+:javascript
+  jQuery( document ).ready(function( $ ) {
+    $("#q_tags_name_cont").select2({
+     placeholder: "Select a Tag",
+     allowClear: true,
+    });
+    $('.select2-container').css('width','100%');
+  });
