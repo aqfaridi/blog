@@ -11,7 +11,7 @@
     %p= @article.text.html_safe
   %p.pull-right
     %span.glyphicon.glyphicon-tags
-    %span.btn.btn-default.btn-xs= raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join(' | ')
+    %span.btn.btn-default.btn-xs= raw @article.tags.map { |t| link_to t.name, tag_path(t.id) }.join(' | ')
   .ratings
     %p
       = time_ago_in_words(@article.created_at)

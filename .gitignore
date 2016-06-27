@@ -20,4 +20,4 @@
 /tmp
 
 # Ignore images stored using paperclip
-/public/system/*
+public/system/*
