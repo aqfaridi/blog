@@ -30,11 +30,10 @@ gem 'devise', '~> 4.1.1'
 gem 'annotate', '~> 2.7.1'
 gem 'mail', '~> 2.6.4'
 gem 'will_paginate', '~> 3.1.0'
-gem 'kaminari'
 gem 'acts-as-taggable-on', '~> 3.4'
-gem "paperclip"
-gem 'bootstrap-tagsinput-rails'
-gem 'ransack'
+gem "paperclip", '~> 4.3.6'
+gem 'bootstrap-tagsinput-rails', '~> 0.4.2.1'
+gem 'ransack', '~> 1.7.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -53,7 +52,7 @@ group :development, :test do
   gem 'awesome_print', '~> 1.7.0'
   gem 'letter_opener', '~> 1.4.1'
   gem 'rails_best_practices', '~> 1.16.0'
-  gem 'rack-mini-profiler'
+  gem 'rack-mini-profiler', '~> 0.10.1'
 end
 
 group :development do
