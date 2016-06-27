@@ -16,5 +16,3 @@
 //= require bootstrap-tagsinput
 //= require turbolinks
 //= require_tree .
-
-
