@@ -4,10 +4,7 @@ class TagsController < ApplicationController
   end
 
   def show
-    @tag =  ActsAsTaggableOn::Tag.find_by_name(params[:id])
-    if @tag == nil 
-    	@tag =  ActsAsTaggableOn::Tag.find(params[:id])
-    end
+    @tag =  ActsAsTaggableOn::Tag.find(params[:id])
     @articles = Article.tagged_with(@tag.name)
   end
 end
