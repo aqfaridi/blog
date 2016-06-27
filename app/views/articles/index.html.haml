@@ -1,20 +1,46 @@
-- @articles.each do |article|
-  .thumbnail
-    .caption-full
-      %h4
-        = link_to article.title, article_path(article) |
-        %span.pull-right
-          - if current_user != nil and current_user.email == article.user.email
-            = link_to 'Edit',edit_article_path(article), :class => 'btn btn-default btn-xs'
-            = link_to 'Delete',                   |
-              article_path(article),              |
-              :method => :delete,                 |
-              data: { confirm: 'Are you sure?' }, |
-              :class => 'btn btn-xs btn-danger'   |
-      %hr/
-      %p= article.text.html_safe
-    .ratings
-      %p.pull-right= article.user.email 
-      %p
-        = time_ago_in_words(article.created_at)
-        ago
+.row.pad.well
+  = search_form_for @q, remote:true do |f|
+    .col-md-12
+      %span.col-md-5= f.search_field :title_cont,:class => 'form-control no-pad', :placeholder => "Title"
+      %span.col-md-5= f.search_field :tags_name_cont,:class => 'form-control no-pad', :placeholder => "Tags"
+      .col-md-2= f.submit :class => 'btn btn-primary btn-block'
+
+.pull-right
+  %span= sort_link(@q, :title, 'Title', default_order: :asc)
+  |
+  %span= sort_link(@q, :created_at, 'Date', default_order: :asc)
+  |
+  %span= sort_link(@q, :tags_name, 'Tags', default_order: :asc)
+%br
+
+%div.thumb
+  - @articles.each do |article|
+    .thumbnail
+      .caption-full
+        %h4
+          = link_to article.title, article_path(article) |
+          %span.pull-right
+            - if current_user != nil and current_user.email == article.user.email
+              = link_to 'Edit',edit_article_path(article), :class => 'btn btn-default btn-xs'
+              = link_to 'Delete',                   |
+                article_path(article),              |
+                :method => :delete,                 |
+                data: { confirm: 'Are you sure?' }, |
+                :class => 'btn btn-xs btn-danger'   |
+        %hr/
+        = image_tag(article.featured.url, :class => 'article-img img-responsive')
+        %hr/
+        %p
+          = truncate article.text.html_safe, length: 600,:omission => "",:escape => false
+          %span= "..."
+          %span= link_to 'Read more', {:action => "show",:id => article.friendly_id}
+
+        %p.pull-right
+          %span.glyphicon.glyphicon-tags
+          %span.btn.btn-default.btn-xs= raw article.tag_list.map { |t| link_to t, tag_path(t) }.join(' | ')  
+      .ratings
+        %p
+          = time_ago_in_words(article.created_at)
+          ago
+  .apple_pagination
+    = will_paginate @articles

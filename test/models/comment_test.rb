@@ -9,6 +9,10 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_comments_on_article_id  (article_id)
+#
 
 require 'test_helper'
 

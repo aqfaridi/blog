@@ -29,6 +29,12 @@ gem 'haml-rails', '~> 0.9.0'
 gem 'devise', '~> 4.1.1'
 gem 'annotate', '~> 2.7.1'
 gem 'mail', '~> 2.6.4'
+gem 'will_paginate', '~> 3.1.0'
+gem 'kaminari'
+gem 'acts-as-taggable-on', '~> 3.4'
+gem "paperclip"
+gem 'bootstrap-tagsinput-rails'
+gem 'ransack'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
