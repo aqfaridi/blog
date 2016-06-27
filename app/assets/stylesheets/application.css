@@ -125,3 +125,15 @@
 .btn-space {
     margin: 1px;
 }
+
+.no-pad {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.pad {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
