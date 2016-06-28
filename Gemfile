@@ -34,6 +34,8 @@ gem 'acts-as-taggable-on', '~> 3.4'
 gem "paperclip", '~> 4.3.6'
 gem 'bootstrap-tagsinput-rails', '~> 0.4.2.1'
 gem 'ransack', '~> 1.7.0'
+gem 'cancancan', '~> 1.10'
+gem 'role_model', '~> 0.8.2'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

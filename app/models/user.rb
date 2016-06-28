@@ -22,6 +22,7 @@
 #  avatar_content_type    :string(255)
 #  avatar_file_size       :integer
 #  avatar_updated_at      :datetime
+#  roles_mask             :integer
 #
 # Indexes
 #
@@ -38,4 +39,25 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   has_many :articles
+
+
+  ROLES = %w[:admin :blogger :viewer]
+  ROLES = ROLES.map{|n| eval n}
+
+  def roles=(roles)
+    roles = [*roles].map { |r| r.to_sym }
+    self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)
+  end
+
+  def roles
+    ROLES.reject do |r|
+      ((roles_mask.to_i || 0) & 2**ROLES.index(r)).zero?
+    end
+  end
+
+  def has_role?(role)
+    roles.include?(role)
+  end
+
 end
+
