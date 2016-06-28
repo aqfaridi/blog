@@ -10,7 +10,7 @@ class CommentsController < ApplicationController
   
   def destroy
     @article = Article.find(params[:article_id])
-    validation(current_user,@article)
+    #validation(current_user,@article)
     @comment = @article.comments.find(params[:id])
     @comment.destroy
     flash[:success] = 'Comment has been deleted successfully !!'
