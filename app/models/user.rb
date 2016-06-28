@@ -40,7 +40,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   has_many :articles
 
-
   ROLES = %w[:admin :blogger :viewer]
   ROLES = ROLES.map{|n| eval n}
 

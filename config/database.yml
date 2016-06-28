@@ -20,11 +20,7 @@ default: &default
 development:
   adapter: mysql2
   encoding: utf8
-  database: blog
   pool: 20
-  username: root
-  password: root
-  host: localhost
   host: <%= Rails.application.secrets.mysql_host %>
   database: <%= Rails.application.secrets.mysql_database %>
   username: <%= Rails.application.secrets.mysql_username %>

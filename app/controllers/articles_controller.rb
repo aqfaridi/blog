@@ -25,7 +25,6 @@ class ArticlesController < ApplicationController
 
   def edit
     @article = Article.find(params[:id])
-    #validation(current_user,@article)  
   end
 
   def create
@@ -53,7 +52,6 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article = Article.find(params[:id])
-    #validation(current_user,@article)
     @article.destroy
     flash[:success] = 'Article has been deleted successfully !!'
     redirect_to articles_path

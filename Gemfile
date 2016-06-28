@@ -22,20 +22,29 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-
+# Use friendly_id gem to slug the url
 gem 'friendly_id', '~> 5.1.0'
+# Use bootstrap and sass for styling and CSS preprocessing
 gem 'twitter-bootstrap-rails', '~> 3.2.2'
+# Use haml templating for views instead of erb
 gem 'haml-rails', '~> 0.9.0'
+# Use devise to implement user authentication, sign in, etc.
 gem 'devise', '~> 4.1.1'
+# Use annotate to add schema description and routes description automatically
 gem 'annotate', '~> 2.7.1'
 gem 'mail', '~> 2.6.4'
+# Use to paginate the index page
 gem 'will_paginate', '~> 3.1.0'
+# Use to add tags to the article
 gem 'acts-as-taggable-on', '~> 3.4'
+# Use paperclip to upload banner image for article and profile picture of user
 gem "paperclip", '~> 4.3.6'
+# For bootstrap design of Tag Field Input 
 gem 'bootstrap-tagsinput-rails', '~> 0.4.2.1'
+# Use ransack to add search by title and tag 
 gem 'ransack', '~> 1.7.0'
+# For Role-based Authorization
 gem 'cancancan', '~> 1.10'
-gem 'role_model', '~> 0.8.2'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
