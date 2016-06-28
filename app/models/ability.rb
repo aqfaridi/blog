@@ -10,6 +10,9 @@ class Ability
     else
       can :read, [Article,Comment]
       can :create, Comment
+      can :manage, Comment do |comment|
+        comment.try(:commenter).eql?(user.email)
+      end
 
       if user.has_role? :blogger
         can :create, Article
