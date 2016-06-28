@@ -21,3 +21,4 @@
 
 # Ignore images stored using paperclip
 public/system/*
+config/secrets.yml
