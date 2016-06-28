@@ -9,6 +9,7 @@
 .DS_Store
 .byebug_history
 .rails_best_practices_output.html
+config/secrets.yml
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
