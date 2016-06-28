@@ -19,9 +19,8 @@ class Ability
         can :destroy, Article do |article|
           article.try(:user) == user
         end
-
-        can :update, Comment do |comment|
-          comment.try(:user) == user
+        can :manage, Comment do |comment|
+          comment.try(:article).try(:user).eql?(user)
         end
       end
     end

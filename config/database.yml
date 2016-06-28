@@ -14,17 +14,22 @@
 #   database: db/development.sqlite3
 
 default: &default
-   adapter: mysql2
-   encoding: utf8
+  adapter: mysql2
+  encoding: utf8
 
 development:
-   adapter: mysql2
-   encoding: utf8
-   database: blog
-   pool: 20
-   username: root
-   password: root
-   host: localhost
+  adapter: mysql2
+  encoding: utf8
+  database: blog
+  pool: 20
+  username: root
+  password: root
+  host: localhost
+  host: <%= Rails.application.secrets.mysql_host %>
+  database: <%= Rails.application.secrets.mysql_database %>
+  username: <%= Rails.application.secrets.mysql_username %>
+  password: <%= Rails.application.secrets.mysql_password %>
+
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
