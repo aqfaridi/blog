@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
+  load_and_authorize_resource
   
   def create
     @article = Article.find(params[:article_id])
@@ -9,7 +10,6 @@ class CommentsController < ApplicationController
   
   def destroy
     @article = Article.find(params[:article_id])
-    validation(current_user,@article)
     @comment = @article.comments.find(params[:id])
     @comment.destroy
     flash[:success] = 'Comment has been deleted successfully !!'

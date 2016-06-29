@@ -24,6 +24,9 @@
           %ul.nav.navbar-nav
             %li
               %a{:href => "/articles"} Articles
+            - if current_user and current_user.has_role? :admin
+              %li
+                %a{:href => "/users"} Users
             %li
               %a{:href => "#"} Contact
           %p.navbar-text.pull-right
@@ -52,10 +55,13 @@
               - @tags.each do |tag|
                 = link_to tag.name, tag_path(tag), :class => "btn btn-primary btn-xs btn-space #{'css'+tag.taggings_count.to_s}"
 
-          - if user_signed_in?
+          - if can? :create, Article
             = link_to 'New Article',                       |
               new_article_path,                            |
-              :class => 'col-md-12 btn btn-lg btn-success' |
+              :class => 'col-md-12 btn btn-success' |
+          
+
+
         .col-md-9
           = bootstrap_flash
           = yield

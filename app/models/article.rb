@@ -3,14 +3,14 @@
 # Table name: articles
 #
 #  id                    :integer          not null, primary key
-#  title                 :string
-#  text                  :text
+#  title                 :string(255)
+#  text                  :text(65535)
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
-#  slug                  :string
+#  slug                  :string(255)
 #  user_id               :integer
-#  featured_file_name    :string
-#  featured_content_type :string
+#  featured_file_name    :string(255)
+#  featured_content_type :string(255)
 #  featured_file_size    :integer
 #  featured_updated_at   :datetime
 #

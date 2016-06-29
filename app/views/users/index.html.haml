@@ -1,0 +1,22 @@
+%table#mytable.table.table-bordred.table-striped
+  %thead
+    %th Email
+    %th Created_at
+    %th Roles
+    %th isConfirm
+    %th Edit
+    %th Delete
+  %tbody
+  - @users.each do |user|
+    %tr
+      %td= user.email
+      %td= user.created_at.to_time.strftime("%B %e at %l:%M %p")
+      %td= user.roles
+      %td= user.confirmed?
+      %td
+        = link_to 'Edit',edit_user_path(user.id), :class => 'btn btn-default btn-xs'
+        %span.glyphicon.glyphicon-pencil
+         
+      %td
+        = link_to 'Delete', delete_user_path(user.id), :class => 'btn btn-danger btn-xs',data: { confirm: "Are you sure?" }, method: :delete
+        %span.glyphicon.glyphicon-trash

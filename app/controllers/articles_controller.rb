@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy]
-  
+  load_and_authorize_resource
+
   def index
     @q = Article.ransack(params[:q])
     @articles = @q.result(distinct: true).includes(:tags).page(params[:page]).per_page(2)
@@ -9,7 +10,6 @@ class ArticlesController < ApplicationController
       format.html # index.html.erb
       format.js   # index.js.erb
     end
-    
  end
 
   def show
@@ -25,7 +25,6 @@ class ArticlesController < ApplicationController
 
   def edit
     @article = Article.find(params[:id])
-    validation(current_user,@article)  
   end
 
   def create
@@ -42,6 +41,7 @@ class ArticlesController < ApplicationController
 
   def update
     @article = Article.find(params[:id])
+    params[:article][:tag_list] = params[:article][:tag_list].tr(","," ")
     if @article.update(article_params)
       flash[:success] = 'Article has been updated successfully !!'
       redirect_to @article
@@ -52,7 +52,6 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article = Article.find(params[:id])
-    validation(current_user,@article)
     @article.destroy
     flash[:success] = 'Article has been deleted successfully !!'
     redirect_to articles_path

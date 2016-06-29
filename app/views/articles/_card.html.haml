@@ -8,8 +8,9 @@
       %h4
         = link_to article.title, article_path(article) |
         %span.pull-right
-          - if current_user and current_user.email == article.user.email
+          - if can? :update, article
             = link_to 'Edit', edit_article_path(article), :class => 'btn btn-default btn-xs'
+          - if can? :destroy, article
             = link_to 'Delete',                   |
               article_path(article),              |
               :method => :delete,                 |
@@ -21,7 +22,7 @@
       %p
         = truncate article.text.html_safe, length: 600,:omission => "",:escape => false
         %span= "..."
-        %span= link_to 'Read more', {:action => "show",:id => article.friendly_id}
+        %span= link_to 'Read more', {:controller => "articles",:action => "show",:id => article.friendly_id}
 
       %p.pull-right
         %span.glyphicon.glyphicon-tags
@@ -32,3 +33,4 @@
         ago
 .apple_pagination
   = will_paginate @articles
+  

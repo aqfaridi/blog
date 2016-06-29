@@ -1,0 +1,30 @@
+.container
+  .row
+    .col-sm-6.col-md-4.col-md-offset-2
+      %h1.text-center.login-title
+        Edit User Details
+      .account-wall
+        = image_tag(@user.avatar.url, :class => 'profile-img')
+        = form_for @user, url: '/users/'.concat(@user.id.to_s),html: { multipart: true, method: :put, :class => "form-signin"} do |f|
+          - if current_user and current_user.has_role? :admin
+            = f.label :roles
+            - for role in User::ROLES
+              = check_box_tag "user[roles][#{role}]", role, @user.roles.include?(role), {:name => "user[roles][]"}
+              = f.label_tag "user_roles_#{role}", role.to_s.humanize
+              %br/
+            = hidden_field_tag "user[roles][]", ""
+          .form-group
+            = f.label :avatar
+            %i (display profile picture)
+            = f.file_field :avatar
+          .form-group
+            = f.label :email
+            %br
+            = f.email_field :email, :class => 'form-control', :placeholder => 'Email', required: true, autofocus: true
+          .form-group
+            = f.label :confirm
+            %i (Email Verification)
+            = f.check_box :confirm
+          = f.submit 'Update',:class => 'btn btn-lg btn-primary btn-block'
+        
+          = link_to 'Back', :back, :class => 'text-center'

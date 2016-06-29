@@ -1,7 +1,7 @@
 # == Route Map
 #
 #                   Prefix Verb   URI Pattern                                       Controller#Action
-#            welcome_index GET    /welcome/index(.:format)                          welcome#index
+#              users_index GET    /users/index(.:format)                            users#index
 #         article_comments GET    /articles/:article_id/comments(.:format)          comments#index
 #                          POST   /articles/:article_id/comments(.:format)          comments#create
 #      new_article_comment GET    /articles/:article_id/comments/new(.:format)      comments#new
@@ -34,21 +34,26 @@
 #       edit_user_password GET    /users/password/edit(.:format)                    devise/passwords#edit
 #                          PATCH  /users/password(.:format)                         devise/passwords#update
 #                          PUT    /users/password(.:format)                         devise/passwords#update
-# cancel_user_registration GET    /users/cancel(.:format)                           devise/registrations#cancel
-#        user_registration POST   /users(.:format)                                  devise/registrations#create
-#    new_user_registration GET    /users/sign_up(.:format)                          devise/registrations#new
-#   edit_user_registration GET    /users/edit(.:format)                             devise/registrations#edit
-#                          PATCH  /users(.:format)                                  devise/registrations#update
-#                          PUT    /users(.:format)                                  devise/registrations#update
-#                          DELETE /users(.:format)                                  devise/registrations#destroy
+# cancel_user_registration GET    /users/cancel(.:format)                           registrations#cancel
+#        user_registration POST   /users(.:format)                                  registrations#create
+#    new_user_registration GET    /users/sign_up(.:format)                          registrations#new
+#   edit_user_registration GET    /users/edit(.:format)                             registrations#edit
+#                          PATCH  /users(.:format)                                  registrations#update
+#                          PUT    /users(.:format)                                  registrations#update
+#                          DELETE /users(.:format)                                  registrations#destroy
 #        user_confirmation POST   /users/confirmation(.:format)                     devise/confirmations#create
 #    new_user_confirmation GET    /users/confirmation/new(.:format)                 devise/confirmations#new
 #                          GET    /users/confirmation(.:format)                     devise/confirmations#show
 #                     root GET    /                                                 welcome#index
+#                    users GET    /users(.:format)                                  users#index
+#                          DELETE /users/:id(.:format)                              users#destroy
+#                          PATCH  /users/:id/edit(.:format)                         users#edit
 #
 
 Rails.application.routes.draw do
-  get 'welcome/index'
+
+  get 'users/index'
+
   resources :articles do
     resources :comments
   end
@@ -56,7 +61,8 @@ Rails.application.routes.draw do
   resources :tags
   
   devise_for :users, controllers: {
-    sessions: 'sessions'
+    sessions: 'sessions',
+    registrations: 'registrations'
   }
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -64,6 +70,10 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'
+  match '/users/',   to: 'users#index',   via: 'get'
+  match '/users/:id',   to: 'users#destroy',   via: 'delete', as: :delete_user
+  match '/users/:id/edit',   to: 'users#edit',   via: 'get', as: :edit_user
+  match '/users/:id',   to: 'users#update',   via: 'put', as: :update_user
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

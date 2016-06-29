@@ -4,7 +4,7 @@
       %h4
         = link_to tag.title, tag_path(tag) |
         %span.pull-right
-          - if current_user != nil and current_user.email == tag.user.email
+          - if can? :update, tag
             = link_to 'Edit',edit_tag_path(tag), :class => 'btn btn-default btn-xs'
             = link_to 'Delete',                   |
               tag_path(tag),              |
