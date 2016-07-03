@@ -45,6 +45,8 @@ gem 'bootstrap-tagsinput-rails', '~> 0.4.2.1'
 gem 'ransack', '~> 1.7.0'
 # For Role-based Authorization
 gem 'cancancan', '~> 1.10'
+# For upvote/downvote feature
+gem 'acts_as_votable', '~> 0.10.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -60,10 +62,20 @@ group :development, :test do
   gem 'byebug', '~> 9.0.5'
   gem 'better_errors', '~> 2.1.1'
   gem 'binding_of_caller', '~> 0.7.2'
+  # For pretty prints of Ruby objects
   gem 'awesome_print', '~> 1.7.0'
+  # For preview email in the browser
   gem 'letter_opener', '~> 1.4.1'
+  # For checking the quality of Rails code
   gem 'rails_best_practices', '~> 1.16.0'
+  # For profiling of rails app
   gem 'rack-mini-profiler', '~> 0.10.1'
+  # For security vulnerabilities
+  gem 'brakeman', :require => false
+  # For Testing
+  gem 'rspec-rails', '~> 3.4'
+  # For Deployment
+  gem "capistrano", '~> 3.4'
 end
 
 group :development do

@@ -39,7 +39,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   has_many :articles
-
+  has_many :comments
+  acts_as_voter
+  
   ROLES = %w[:admin :blogger :viewer]
   ROLES = ROLES.map{|n| eval n}
 

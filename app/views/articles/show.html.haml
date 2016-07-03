@@ -9,13 +9,19 @@
     = image_tag(@article.featured.url, :class => 'article-img img-responsive')
     %hr/   
     %p= @article.text.html_safe
+    %hr/   
   %p.pull-right
     %span.glyphicon.glyphicon-tags
     %span.btn.btn-default.btn-xs= raw @article.tags.map { |t| link_to t.name, tag_path(t.id) }.join(' | ')
   .ratings
+    .votes.pull-right.marg  
+      %span.tally-likes= @article.get_likes.size
+      = render :partial => "layouts/votebuttons"
+      %span.tally-dislikes= @article.get_dislikes.size
     %p
       = time_ago_in_words(@article.created_at)
       ago
+    
 .well
   .text-right
     %h4 Comments
@@ -40,3 +46,34 @@
     - else
       %em you must be logged in to comment !! 
 = link_to 'Back', articles_path, :class => 'btn btn-default'
+
+
+:javascript
+  $('button.thumbup, button.thumbdown').click(function() {
+    var article_id,vote;
+    if($(this).siblings('.thumbup').hasClass('voted')) {
+      $(this).siblings('.thumbup').removeClass('voted');
+      $(this).addClass('voted');
+    } else if ($(this).siblings('.thumbdown').hasClass('voted')) {
+      $(this).siblings('.thumbdown').removeClass('voted');
+      $(this).addClass('voted');
+    } else if ($(this).hasClass('voted')) {
+      $(this).removeClass('voted');
+    } else {
+      $(this).addClass('voted');
+    }
+
+    vote = $(this).find('span').attr('vote');
+    article_id = $(this).find('span').attr('id');
+    return $.ajax({
+      url: article_id+'/vote_article',
+      method: 'POST',
+      data: {
+        vote: vote
+      }
+    }).done(function( data ) {
+      $('.tally-likes').text(data.pcount);
+      $('.tally-dislikes').text(data.ncount);
+    });
+  });
+
