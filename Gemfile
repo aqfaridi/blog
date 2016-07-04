@@ -47,7 +47,9 @@ gem 'ransack', '~> 1.7.0'
 gem 'cancancan', '~> 1.10'
 # For upvote/downvote feature
 gem 'acts_as_votable', '~> 0.10.0'
-
+# For parsing html content
+gem 'htmlentities', '~> 4.3.4'
+gem 'nokogiri', '~> 1.6.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

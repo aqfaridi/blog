@@ -21,7 +21,17 @@
     %p
       = time_ago_in_words(@article.created_at)
       ago
-    
+
+.thumbnail
+  .caption-full
+    %h4 Related questions
+    %hr/
+  %ul.related-posts
+    - @relates.each do |relate|
+      %i.fa.fa-angle-double-right
+      = link_to relate.title , {:action => "show",:id => relate.friendly_id}
+      %br
+
 .well
   .text-right
     %h4 Comments

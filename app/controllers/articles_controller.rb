@@ -14,6 +14,7 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
+    @relates = @article.related.first(3)
     if request.path != article_path(@article)
       redirect_to @article, status: :moved_permanently
     end
@@ -31,6 +32,8 @@ class ArticlesController < ApplicationController
     params[:article][:tag_list] = params[:article][:tag_list].tr(","," ")
     @article = current_user.articles.build(article_params)
     if @article.save
+      @article.update_related!
+      @article.related.each { |p| p.update_related! }
       ArticleMailer.article_created(current_user,@article).deliver
       flash[:success] = 'Article has been created successfully !!'
       redirect_to @article
@@ -43,6 +46,8 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     params[:article][:tag_list] = params[:article][:tag_list].tr(","," ")
     if @article.update(article_params)
+      @article.update_related!
+      @article.related.each { |p| p.update_related! }
       flash[:success] = 'Article has been updated successfully !!'
       redirect_to @article
     else

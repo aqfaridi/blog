@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160702155359) do
+ActiveRecord::Schema.define(version: 20160703192349) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                 limit: 255
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 20160702155359) do
     t.string   "featured_content_type", limit: 255
     t.integer  "featured_file_size",    limit: 4
     t.datetime "featured_updated_at"
+    t.text     "words",                 limit: 65535
+    t.string   "related_articles",      limit: 255
   end
 
   add_index "articles", ["slug"], name: "index_articles_on_slug", using: :btree
