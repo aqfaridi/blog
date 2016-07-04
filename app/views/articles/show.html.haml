@@ -1,15 +1,20 @@
-.thumbnail
+.thumbnail.article
   .caption-full
     %h4
       = @article.title |
-      %span.pull-right
+      %span.pull-right.small
+        Reading Time ~  
+        %span.eta
+        (
+        %span.word-count
+        words)
         - if can? :update, @article
           = link_to 'Edit', edit_article_path(@article), :class => 'btn btn-primary' 
     %hr/
     = image_tag(@article.featured.url, :class => 'article-img img-responsive')
     %hr/   
-    %p= @article.text.html_safe
-    %hr/   
+    %p.body= @article.text.html_safe
+  %hr/
   %p.pull-right
     %span.glyphicon.glyphicon-tags
     %span.btn.btn-default.btn-xs= raw @article.tags.map { |t| link_to t.name, tag_path(t.id) }.join(' | ')
@@ -21,6 +26,22 @@
     %p
       = time_ago_in_words(@article.created_at)
       ago
+
+.thumbnail
+  .caption-full
+    %h4 About the Author
+    %hr/
+  .container
+    .row
+      .col-md-1
+        = image_tag(@article.user.avatar.url, :class => 'img-responsive author-img')
+        %br
+      .col-md-7
+        Contact Info :
+        %br/
+        .ratingsblue
+          = @article.user.email
+      
 
 .thumbnail
   .caption-full
@@ -36,27 +57,19 @@
   .text-right
     %h4 Comments
   %hr/
-  = render @article.comments
+  .container
+    = render @article.comments
+
+
 .panel.panel-default
   .panel-heading.caption-full
     %p Leave a Comment
   .panel-body
     - if user_signed_in?
       = render 'comments/form'
-      / - if @comment.errors.any?
-      /   .panel.panel-danger
-      /     .panel-heading
-      /       %h3.panel-title
-      /         = pluralize(@comment.errors.count, "error")
-      /         prohibited this comment from being saved:
-      /     .panel-body
-      /       %ul
-      /         - @comment.errors.full_messages.each do |msg|
-      /           %li= msg
     - else
       %em you must be logged in to comment !! 
 = link_to 'Back', articles_path, :class => 'btn btn-default'
-
 
 :javascript
   $('button.thumbup, button.thumbdown').click(function() {
@@ -87,3 +100,20 @@
     });
   });
 
+  jQuery( document ).ready(function( $ ) {       
+    var $article = $('.article');
+    $article.readingTime({
+        readingTimeTarget: $article.find('.eta'),
+        wordCountTarget: $article.find('.word-count'),
+        wordsPerMinute: 100,
+        round: false,
+        lang: 'fr',
+        success: function() {
+            console.log('It worked!');
+        },
+        error: function(message) {
+            console.log(message);
+            $article.find('.eta').remove();
+        }
+    });
+  });

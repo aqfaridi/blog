@@ -28,7 +28,6 @@
       %span.glyphicon.glyphicon-tags
       %span.btn.btn-default.btn-xs= raw article.tags.map { |t| link_to t.name, tag_path(t.id) }.join(' | ') 
       
-
     .ratings
       .votes.pull-right.marg
         %span.fa.fa-thumbs-o-up.tally-likes{"aria-hidden" => "true", :id => article.id, :vote => "upvote"}
@@ -41,4 +40,3 @@
 
 .apple_pagination
   = will_paginate @articles
-  
