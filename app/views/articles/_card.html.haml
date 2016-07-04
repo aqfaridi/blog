@@ -23,14 +23,20 @@
         = truncate article.text.html_safe, length: 600,:omission => "",:escape => false
         %span= "..."
         %span= link_to 'Read more', {:controller => "articles",:action => "show",:id => article.friendly_id}
-
-      %p.pull-right
-        %span.glyphicon.glyphicon-tags
-        %span.btn.btn-default.btn-xs= raw article.tags.map { |t| link_to t.name, tag_path(t.id) }.join(' | ')  
+      %hr/
+    %p.pull-right
+      %span.glyphicon.glyphicon-tags
+      %span.btn.btn-default.btn-xs= raw article.tags.map { |t| link_to t.name, tag_path(t.id) }.join(' | ') 
+      
     .ratings
+      .votes.pull-right.marg
+        %span.fa.fa-thumbs-o-up.tally-likes{"aria-hidden" => "true", :id => article.id, :vote => "upvote"}
+        %span.tally-likes= article.get_likes.size
+        %span.fa.fa-thumbs-o-down{"aria-hidden" => "true", :id => article.id, :vote => "downvote"}
+        %span.tally-dislikes= article.get_dislikes.size
       %p
         = time_ago_in_words(article.created_at)
         ago
+
 .apple_pagination
   = will_paginate @articles
-  

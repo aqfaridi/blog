@@ -10,6 +10,7 @@
 #                          PATCH  /articles/:article_id/comments/:id(.:format)      comments#update
 #                          PUT    /articles/:article_id/comments/:id(.:format)      comments#update
 #                          DELETE /articles/:article_id/comments/:id(.:format)      comments#destroy
+#     vote_article_article POST   /articles/:id/vote_article(.:format)              articles#vote_article
 #                 articles GET    /articles(.:format)                               articles#index
 #                          POST   /articles(.:format)                               articles#create
 #              new_article GET    /articles/new(.:format)                           articles#new
@@ -46,8 +47,9 @@
 #                          GET    /users/confirmation(.:format)                     devise/confirmations#show
 #                     root GET    /                                                 welcome#index
 #                    users GET    /users(.:format)                                  users#index
-#                          DELETE /users/:id(.:format)                              users#destroy
-#                          PATCH  /users/:id/edit(.:format)                         users#edit
+#              delete_user DELETE /users/:id(.:format)                              users#destroy
+#                edit_user GET    /users/:id/edit(.:format)                         users#edit
+#              update_user PUT    /users/:id(.:format)                              users#update
 #
 
 Rails.application.routes.draw do
@@ -56,6 +58,9 @@ Rails.application.routes.draw do
 
   resources :articles do
     resources :comments
+    member do
+      post 'vote_article', to: 'articles#vote_article'
+    end
   end
 
   resources :tags

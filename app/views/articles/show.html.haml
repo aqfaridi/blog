@@ -2,52 +2,105 @@
   .caption-full
     %h4
       = @article.title |
-      %span.pull-right
+      %span.pull-right.small
+        Reading Time ~  
+        %span.eta
+        (
+        %span.word-count
+        words)
         - if can? :update, @article
           = link_to 'Edit', edit_article_path(@article), :class => 'btn btn-primary' 
     %hr/
     = image_tag(@article.featured.url, :class => 'article-img img-responsive')
     %hr/   
     %p.body= @article.text.html_safe
+  %hr/
   %p.pull-right
     %span.glyphicon.glyphicon-tags
     %span.btn.btn-default.btn-xs= raw @article.tags.map { |t| link_to t.name, tag_path(t.id) }.join(' | ')
   .ratings
+    .votes.pull-right.marg  
+      %span.tally-likes= @article.get_likes.size
+      = render :partial => "layouts/votebuttons"
+      %span.tally-dislikes= @article.get_dislikes.size
     %p
       = time_ago_in_words(@article.created_at)
       ago
-    .small.blue
-      %span.eta
-      (
-      %span.word-count
-      words)
+
+.thumbnail
+  .caption-full
+    %h4 About the Author
+    %hr/
+  .container
+    .row
+      .col-md-1
+        = image_tag(@article.user.avatar.url, :class => 'img-responsive author-img')
+        %br
+      .col-md-7
+        Contact Info :
+        %br/
+        .ratingsblue
+          = @article.user.email
+      
+
+.thumbnail
+  .caption-full
+    %h4 Related questions
+    %hr/
+  %ul.related-posts
+    - @relates.each do |relate|
+      %i.fa.fa-angle-double-right
+      = link_to relate.title , {:action => "show",:id => relate.friendly_id}
+      %br
+
 .well
   .text-right
     %h4 Comments
   %hr/
-  = render @article.comments
+  .container
+    = render @article.comments
+
+
 .panel.panel-default
   .panel-heading.caption-full
     %p Leave a Comment
   .panel-body
     - if user_signed_in?
       = render 'comments/form'
-      / - if @comment.errors.any?
-      /   .panel.panel-danger
-      /     .panel-heading
-      /       %h3.panel-title
-      /         = pluralize(@comment.errors.count, "error")
-      /         prohibited this comment from being saved:
-      /     .panel-body
-      /       %ul
-      /         - @comment.errors.full_messages.each do |msg|
-      /           %li= msg
     - else
       %em you must be logged in to comment !! 
 = link_to 'Back', articles_path, :class => 'btn btn-default'
 
 :javascript
-  jQuery( document ).ready(function( $ ) {
+  $('button.thumbup, button.thumbdown').click(function() {
+    var article_id,vote;
+    if($(this).siblings('.thumbup').hasClass('voted')) {
+      $(this).siblings('.thumbup').removeClass('voted');
+      $(this).addClass('voted');
+    } else if ($(this).siblings('.thumbdown').hasClass('voted')) {
+      $(this).siblings('.thumbdown').removeClass('voted');
+      $(this).addClass('voted');
+    } else if ($(this).hasClass('voted')) {
+      $(this).removeClass('voted');
+    } else {
+      $(this).addClass('voted');
+    }
+
+    vote = $(this).find('span').attr('vote');
+    article_id = $(this).find('span').attr('id');
+    return $.ajax({
+      url: article_id+'/vote_article',
+      method: 'POST',
+      data: {
+        vote: vote
+      }
+    }).done(function( data ) {
+      $('.tally-likes').text(data.pcount);
+      $('.tally-dislikes').text(data.ncount);
+    });
+  });
+
+  jQuery( document ).ready(function( $ ) {       
     var $article = $('.article');
     $article.readingTime({
         readingTimeTarget: $article.find('.eta'),
