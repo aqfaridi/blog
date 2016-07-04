@@ -1,4 +1,4 @@
-.thumbnail
+.thumbnail.article
   .caption-full
     %h4
       = @article.title |
@@ -8,7 +8,7 @@
     %hr/
     = image_tag(@article.featured.url, :class => 'article-img img-responsive')
     %hr/   
-    %p= @article.text.html_safe
+    %p.body= @article.text.html_safe
   %p.pull-right
     %span.glyphicon.glyphicon-tags
     %span.btn.btn-default.btn-xs= raw @article.tags.map { |t| link_to t.name, tag_path(t.id) }.join(' | ')
@@ -16,6 +16,11 @@
     %p
       = time_ago_in_words(@article.created_at)
       ago
+    .small.blue
+      %span.eta
+      (
+      %span.word-count
+      words)
 .well
   .text-right
     %h4 Comments
@@ -40,3 +45,22 @@
     - else
       %em you must be logged in to comment !! 
 = link_to 'Back', articles_path, :class => 'btn btn-default'
+
+:javascript
+  jQuery( document ).ready(function( $ ) {
+    var $article = $('.article');
+    $article.readingTime({
+        readingTimeTarget: $article.find('.eta'),
+        wordCountTarget: $article.find('.word-count'),
+        wordsPerMinute: 100,
+        round: false,
+        lang: 'fr',
+        success: function() {
+            console.log('It worked!');
+        },
+        error: function(message) {
+            console.log(message);
+            $article.find('.eta').remove();
+        }
+    });
+  });
