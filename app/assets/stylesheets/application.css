@@ -138,3 +138,18 @@
     padding-left: 0px;
     padding-right: 0px;
 }
+
+.voted {
+    color: #1e90ff !important;
+}
+
+.marg {
+    margin-right: 15px;
+}
+
+.tally-likes {
+    color: green;
+}
+
+
+

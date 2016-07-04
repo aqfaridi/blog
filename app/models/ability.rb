@@ -8,10 +8,11 @@ class Ability
       # an admin can do everything
       can :manage, :all
     else
+      can :vote_article, Article
       can :read, [Article,Comment]
       can :create, Comment
       can :manage, Comment do |comment|
-        comment.try(:commenter).eql?(user.email)
+        comment.try(:user).eql?(user)
       end
 
       if user.has_role? :blogger

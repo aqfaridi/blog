@@ -1,0 +1,16 @@
+<% if current_user.voted_up_on? @article%>
+  <button type="button" class="btn btn-default btn-xs thumbup voted" aria-label="Left Align">
+    <span class="fa fa-thumbs-o-up" aria-hidden="true" vote="upvote" id="<%= @article.friendly_id%>"></span>
+<% else %>
+  <button type="button" class="btn btn-default btn-xs thumbup" aria-label="Left Align">
+    <span class="fa fa-thumbs-o-up" aria-hidden="true" vote="upvote" id="<%= @article.friendly_id%>"></span>
+<% end %> 
+  </button>
+<% if current_user.voted_down_on? @article%>
+  <button type="button" class="btn btn-default btn-xs thumbdown voted" aria-label="Left Align">
+   <span class="fa fa-thumbs-o-down" aria-hidden="true" vote="downvote" id="<%= @article.friendly_id%>"></span>
+<% else %>
+  <button type="button" class="btn btn-default btn-xs thumbdown" aria-label="Left Align">
+    <span class="fa fa-thumbs-o-down" aria-hidden="true" vote="downvote" id="<%= @article.friendly_id%>"></span>
+<% end %>
+  </button>

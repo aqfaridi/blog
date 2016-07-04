@@ -1,8 +1,4 @@
-= form_for([@article, @article.comments.build],:html => { :class => "form-horizontal" }) do |f|
-  .form-group
-    = f.label :commenter, :class => 'control-label col-md-2'
-    .col-lg-10
-      = f.text_field :commenter, :value => current_user.email,:readonly => true, :class => 'form-control'
+= form_for([@comment, current_user.comments.build],:url => article_comments_path(@article),:html => { :class => "form-horizontal" }) do |f|
   .form-group
     = f.label :body, :class => 'control-label col-md-2'
     .col-lg-10

@@ -1,7 +1,7 @@
 .row
   %div
-    .lead.col-md-7= comment.commenter
-    - if can? :update, comment
+    .lead.col-md-7= comment.user.email
+    - if can? :destroy, comment
       .pull-right= link_to 'Destroy', [comment.article, comment],:class => 'btn btn-xs btn-danger', method: :delete,data: { confirm: 'Are you sure?' }
   .col-md-9
     %p= comment.body.html_safe
